@@ -5,9 +5,47 @@
 
 <h2>React</h2>
 
+<div id="content"></div>
+<script >
+    var CommentBox = React.createClass({
+        displayName: 'CommentBox',
+        render: function () {
+            return (
+              React.createElement('div', { className: "commentBox" },
+                "Hello, world! I am a CommentBox."
+              )
+            );
+        }
+    });
+    var CommentList = React.createClass({
+        displayName:"CommentList",
+        render: function() {
+            return (
+                React.createElement('div', {className:"commentList"},
+                "Hello, world! I am a CommentList."
+                )
+            );
+        }
+    });
 
+    var CommentForm = React.createClass({
+        render: function() {
+            return (
+              <div className="commentForm">
+                Hello, world! I am a CommentForm.
+              </div>
+          );
+        }
+    });
+    React.render(
+      React.createElement(CommentBox, null),
+      document.getElementById('content')
+    );
+    
+    
+</script>
 
-@section Scripts {
+@section HeadScripts {
      
     <script src="~/Scripts/react/react-0.13.1.js"></script>
     <script src="~/Scripts/react/JSXTransformer-0.13.1.js"></script>
