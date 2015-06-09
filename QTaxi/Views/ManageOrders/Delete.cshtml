@@ -1,0 +1,88 @@
+﻿@model QTaxi.Models.Order
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.address_from)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.address_from)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.address_to)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.address_to)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.client_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.client_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.client_phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.client_phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.client_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.client_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Car.car_mark)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Car.car_mark)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderStatus.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrderStatus.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Taxi.title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Taxi.title)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

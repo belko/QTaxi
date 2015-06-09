@@ -1,0 +1,75 @@
+﻿@model IEnumerable<QTaxi.Models.Order>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.address_from)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.address_to)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.client_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.client_phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.client_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Car.car_mark)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderStatus.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Taxi.title)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.address_from)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.address_to)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.client_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.client_phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.client_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Car.car_mark)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderStatus.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Taxi.title)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

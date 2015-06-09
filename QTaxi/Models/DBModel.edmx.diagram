@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="570f037173db4acd8bc5c33cb7b4ce43" Name="Diagram1">
+        <EntityTypeShape EntityType="TaxiModel.Car" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaxiModel.Driver" Width="1.5" PointX="5.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaxiModel.Order" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaxiModel.OrderStatus" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaxiModel.Taxi" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaxiModel.TaxiCars" Width="1.5" PointX="6" PointY="4" IsExpanded="true" />
+        <AssociationConnector Association="TaxiModel.FK_Order_Car" ManuallyRouted="false" />
+        <AssociationConnector Association="TaxiModel.FK_TaxiCars_Car" ManuallyRouted="false" />
+        <AssociationConnector Association="TaxiModel.FK_Order_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="TaxiModel.FK_Order_Taxi" ManuallyRouted="false" />
+        <AssociationConnector Association="TaxiModel.FK_TaxiCars_TaxiCars" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TaxiModel.User" Width="1.5" PointX="5.375" PointY="6.75" />
+        <EntityTypeShape EntityType="TaxiModel.CarStatus" Width="1.5" PointX="0.75" PointY="11.375" />
+        <AssociationConnector Association="TaxiModel.FK_Car_Status" />
+        <AssociationConnector Association="TaxiModel.FK_Car_AspNetUsers" />
+        <AssociationConnector Association="TaxiModel.FK_Car_Driver" />
+        <EntityTypeShape EntityType="TaxiModel.TaxiManagers" Width="1.5" PointX="7.375" PointY="6.75" />
+        <AssociationConnector Association="TaxiModel.FK_Driver_Users" />
+        <AssociationConnector Association="TaxiModel.FK_Order_ManageUsers" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

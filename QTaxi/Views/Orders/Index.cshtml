@@ -1,0 +1,234 @@
+﻿
+
+<div ng-app="ordersApp" ng-controller="OrdersCtrl">
+
+    <div class="panel with-nav-tabs">
+        <div class="panel-heading">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tabNewOrder" data-toggle="tab">Новый заказ</a></li>
+                <li><a href="#tabNewOrders" data-toggle="tab">Новые заказы</a></li>
+                <li><a href="#tabActiveOrders" data-toggle="tab">Активные заказы</a></li>
+            </ul>
+        </div>
+        <div class="panel-body">
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="tabNewOrder">
+                    <div class="row">
+
+                        <div class="col-sm-6 col-md-6">
+                            <div class="panel">
+                                <form name="newOrder">
+                                    <input type="hidden" ng-model="currentOrder.id" />
+                                    <div class="form-group">
+                                        <label for="newOrderAddress">Address from 
+                                            <span class="error" ng-show="newOrder.addressFrom.$error.required">*</span></label>
+                                        <input type="text"
+                                               ng-model="currentOrder.address_from"
+                                               required
+                                               class="form-control" name="addressFrom" id="newOrderAddressFrom" placeholder="Enter address" style="  max-width: initial;">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="newOrderAddress">Address to</label>
+                                        <input type="text" 
+                                               ng-model="currentOrder.address_to"
+                                               class="form-control " id="newOrderAddressTo" placeholder="Enter address" style="  max-width: initial;">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="newOrderAddress">Client phone</label>
+                                        <input type="tel" name="clientPhone"
+                                               ng-model="currentOrder.client_phone"
+                                               required
+                                               class="form-control" id="newOrderClientPhone" placeholder="Enter phone">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="newOrderAddress">Driver</label>
+                                        <select class="form-control" ng-model="currentOrder.car_id"
+                                                ng-options="car.Id as car.title for car in cars">
+                                            <option></option>
+                                        </select>
+                                    </div>
+
+
+                                    <input type="button" class="btn btn-default"
+                                           ng-click="createOrder()"
+                                           ng-disabled="newOrder.addressFrom.$invalid || newOrder.clientPhone.$invalid"
+                                           value="Create Order">
+                                    <button type="button" class="btn btn-default" ng-click="setCurrentOrder()">Cancel</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        
+                        <div class="col-sm-6 col-md-6">
+
+                            <div id="map-canvas" style="height: 350px;">
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="tabNewOrders">
+                    <div class="row" style="margin-top:10px">
+                        <div id="newOrdersContainer">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="order in newOrders">
+
+                                        <td>
+                                            <div><b>От:</b> {{order.address_from}}</div>
+                                            <div><b>До:</b> {{order.address_to}}</div>
+                                        </td>
+                                        <td></td>
+                                        <td>{{order.status}}</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                                                    Action
+                                                    <span class="caret"></span>
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#" ng-click="takeOrder($index)">Take order</a></li>
+                                                    <li><a href="#" ng-click="setCurrentOrder('new',$index)">View</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="tabActiveOrders">
+                    <div id="activeOrdersContainer">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="order in activeOrders">
+                                    <td>
+                                        <div><b>От:</b> {{order.address_from}}</div>
+                                        <div><b>До:</b> {{order.address_to}}</div>
+                                    </td>
+                                    <td>{{order.car_name}}</td>
+                                    <td>{{order.status}}</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                                                Action
+                                                <span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#" ng-click=""></a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+   
+    
+</div>
+<style>
+    .onMap{
+        border:solid thick green;
+    }
+    @@media (min-width: 768px) and (max-width:991px){
+        .container {
+          max-width: 750px;
+          max-width: initial;
+        }
+    }
+</style>
+
+@section Scripts {
+    
+    
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
+<script src="~/Scripts/controllers/orders.js"></script>
+    <script src="~/Scripts/google.js"></script>
+    <script type="text/javascript">
+        var gmap = null;
+        $(document).ready(function () {
+            gmap = gInitializeMap('map-canvas')
+            //gAttachPlaceApiByClassName('gplace', gPlaceCallBack);
+            
+        });
+        var markerFrom = null;
+        var markerTo = null;
+        function gPlaceCallBack(params)
+        {
+            $scope.$apply();
+            var latitude = params.pos.latitude;
+            var longitude = params.pos.longitude;
+            var pos = new google.maps.LatLng(latitude,longitude);
+            
+            if (params.elementId == "newOrderAddressFrom") {
+                if (markerFrom) {
+                    markerFrom.setPosition(pos);
+                } else
+                {
+                    markerFrom = new google.maps.Marker({
+                        position: pos,
+                        map: gmap,
+                        title: 'Address from'
+                    });
+                    markerFrom.setDraggable(true);
+                }
+            }
+            else
+            {
+                if (markerTo) {
+                    markerTo.setPosition(pos);
+                } else {
+                    markerTo = new google.maps.Marker({
+                        position: pos,
+                        map: gmap,
+                        title: 'Address To'
+                    });
+                    markerTo.setDraggable(true);
+                }
+            }
+            
+            
+            
+
+            //gmap.setCenter(pos);
+            gmap.panTo(pos);
+            //gmap.setZoom(12);
+        }
+
+
+        
+
+        function setOnMap()
+        {
+            $(".onMap").removeClass("onMap");
+            var el = $(this);
+            if (el.hasClass("addressFrom"))
+            {
+
+            }
+            el.addClass("onMap");
+            if (el.attr("geo"))
+            {
+                gPlaceCallBack(JSON.parse(el.attr("geo")));
+            }
+        }
+    </script>
+
+}
